@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-
 }
 
 datasource db {
@@ -14,25 +13,64 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
- id Int @id @default(autoincrement())
- name String
- email String @unique
- tasks Task[]
-} 
-model Category {
- id Int @id @default(autoincrement())
- name String
- tasks Task[]
+model Role {
+  id_role     Int       @id @default(autoincrement())
+  description String
+  usuarios    Usuario[]
 }
 
-model Task {
- id Int @id @default(autoincrement())
- title String
- description String?
- completed Boolean @default(false)
- userId Int
- categoryId Int
- user User @relation(fields: [userId], references: [id])
- category Category @relation(fields: [categoryId], references: [id])
+model TipoDocumento {
+  id_tipo_documento Int       @id @default(autoincrement())
+  description       String
+  usuarios          Usuario[]
+}
+
+model Producto {
+  id_producto    Int         @id @default(autoincrement())
+  referencia     String
+  pantalla       String
+  almacenamiento Int
+  ram            Int
+  imagen         String
+  stock          Int
+  precio_costo   Int
+  precio_venta   Int
+  items          ItemVenta[]
+}
+
+model Usuario {
+  id_usuario            Int           @id @default(autoincrement())
+  numero_identificacion String        @unique
+  nombre                String
+  correo                String        @unique
+  direccion             String
+  telefono              String
+  clave                 String
+  id_tipo_documento_fk  Int
+  id_role_fk            Int
+  ventas                Venta[]
+  tipoDocumento         TipoDocumento @relation(fields: [id_tipo_documento_fk], references: [id_tipo_documento])
+  role                  Role          @relation(fields: [id_role_fk], references: [id_role])
+}
+
+model Venta {
+  id_venta       Int         @id @default(autoincrement())
+  numero_factura String      @unique
+  fecha_venta    DateTime    @default(now())
+  total          Int
+  id_usuario_fk  Int
+  items          ItemVenta[]
+  usuario        Usuario     @relation(fields: [id_usuario_fk], references: [id_usuario])
+}
+
+model ItemVenta {
+  id_venta_fk    Int
+  id_item        Int
+  id_producto_fk Int
+  stock_vendido  Int
+  precio_venta   Int
+  Venta          Venta    @relation(fields: [id_venta_fk], references: [id_venta])
+  Producto       Producto @relation(fields: [id_producto_fk], references: [id_producto])
+
+  @@id([id_venta_fk, id_item])
 }
