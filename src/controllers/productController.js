@@ -19,7 +19,7 @@ const newProduct = await prisma.producto.create({
 
 export const getProducts = async (req, res) => { 
   try { 
-    const products = await prisma.task.findMany(); 
+    const products = await prisma.producto.findMany(); 
     res.json(products); 
   } catch (error) { 
     res.status(500).json({ error: error.message }); 
