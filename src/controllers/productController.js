@@ -49,7 +49,7 @@ export const deleteProduct = async (req, res) => {
 const { id } = req.params; 
 try { 
 const product = await prisma.producto.delete({ 
- where: { id: parseInt(id) }, 
+ where: { id_producto: parseInt(id) }, 
     }); 
     res.json(product); 
   } catch (error) { 
