@@ -6,9 +6,22 @@ import { connect } from "./prismaClient.js";
 dotenv.config();
 
 const app = express(); 
+
+
 app.use(cors()); // Permite peticiones desde otros orígenes (ej: frontend) 
 app.use(express.json()); // Permite recibir JSON desde el frontend 
 app.use("/api", productRoutes); // Prefijo para nuestras rutas 
+
+
+// 👇 Loguear cada petición que llega
+app.use((req, res, next) => {
+  console.log(`➡️ ${req.method} ${req.originalUrl}`);
+  console.log("Headers:", req.headers);
+  console.log("Body:", req.body);
+  next();
+});
+
+
 // conectarme a la base de datos 
 connect(); 
 const PORT = process.env.PORT || 3001; 
