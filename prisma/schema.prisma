@@ -36,6 +36,8 @@ model Producto {
   precio_costo   Int
   precio_venta   Int
   items          ItemVenta[]
+
+  @@map("productos") // La tabla en la DB se llama "productos"
 }
 
 model Usuario {
