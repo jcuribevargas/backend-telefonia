@@ -3,10 +3,10 @@ import prisma from "../prismaClient.js";
 // Crear un nuevo producto
 
 export const createProduct = async (req, res) => { 
-const { id, reference,screen, storage, ram, image, stock, priceCost, priceSale } = req.body;
+const {referencia,pantalla, almacenamiento, ram, imagen, stock, precio_costo, precio_venta } = req.body;
 try { 
 const newProduct = await prisma.producto.create({ 
- data: { id, reference,screen, storage, ram, image, stock, priceCost, priceSale }, 
+ data: {referencia,pantalla, almacenamiento, ram, imagen, stock, precio_costo, precio_venta }, 
     }); 
     res.json(newProduct); 
   } catch (error) { 
