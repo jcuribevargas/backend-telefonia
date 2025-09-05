@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schemas  = ["db_telefonia", "public"]
+  schemas  = ["db_telefonia"]
 }
 
 model Role {
@@ -88,34 +88,4 @@ model ItemVenta {
   @@unique([id_venta_fk, id_item], map: "item_unique")
   @@map("items_ventas")
   @@schema("db_telefonia")
-}
-
-model Category {
-  id   Int    @id @default(autoincrement())
-  name String
-  Task Task[]
-
-  @@schema("public")
-}
-
-model Task {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String?
-  completed   Boolean  @default(false)
-  userId      Int
-  categoryId  Int
-  Category    Category @relation(fields: [categoryId], references: [id])
-  User        User     @relation(fields: [userId], references: [id])
-
-  @@schema("public")
-}
-
-model User {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String @unique
-  Task  Task[]
-
-  @@schema("public")
 }
