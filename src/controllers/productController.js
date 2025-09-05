@@ -3,13 +3,17 @@ import prisma from "../prismaClient.js";
 // Crear un nuevo producto
 
 export const createProduct = async (req, res) => { 
-const {referencia,pantalla, almacenamiento, ram, imagen, stock, precio_costo, precio_venta } = req.body;
+const {referencia, pantalla, almacenamiento, ram, imagen, stock, precio_costo, precio_venta } = req.body;
 try { 
 const newProduct = await prisma.producto.create({ 
  data: {referencia,pantalla, almacenamiento, ram, imagen, stock, precio_costo, precio_venta }, 
     }); 
     res.json(newProduct); 
   } catch (error) { 
+    console.error("Error al crear el producto:", error); 
+     if (error.code === 'P2002') {
+        res.status(409).json({ error: "Producto con esta referencia ya existe." });
+      } else {  
     res.status(400).json({ error: error.message });
       } 
 };
@@ -31,11 +35,11 @@ export const getProducts = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
 const { id } = req.params; 
-const { reference, screen, storage, ram, image, stock, priceCost, priceSale } = req.body;
+const {referencia, pantalla, almacenamiento, ram, imagen, stock, precio_costo, precio_venta } = req.body;
 try { 
 const product = await prisma.producto.update({ 
- where: { id: parseInt(id) }, 
- data: { reference, screen, storage, ram, image, stock, priceCost, priceSale }, 
+ where: { id_producto: parseInt(id) }, 
+ data: {referencia, pantalla, almacenamiento, ram, imagen, stock, precio_costo, precio_venta }, 
     }); 
     res.json(product); 
   } catch (error) { 
