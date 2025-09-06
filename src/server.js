@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors"; 
 import dotenv from "dotenv"; 
 import productRoutes from "./routes/productRoutes.js"; 
+import roleRoutes from "./routes/roleRoutes.js";
 import { connect } from "./prismaClient.js"; 
 dotenv.config();
 
@@ -11,7 +12,7 @@ const app = express();
 app.use(cors()); // Permite peticiones desde otros orígenes (ej: frontend) 
 app.use(express.json()); // Permite recibir JSON desde el frontend 
 app.use("/api", productRoutes); // Prefijo para nuestras rutas 
-
+app.use("/api", roleRoutes); // Prefijo para nuestras rutas
 
 // 👇 Loguear cada petición que llega
 app.use((req, res, next) => {
