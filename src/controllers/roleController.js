@@ -5,7 +5,14 @@ import prisma from "../prismaClient.js";
 export const createRole = async (req, res) => {
     console.log("📥 Body recibido:", req.body); // 👈 esto aparece en los logs de Render
     const { descripcion } = req.body;
-    try{
+    if (descripcion.length > 45) {
+       return res.status(400).json({ error: "La descripción no puede tener más de 45 caracteres" });
+       }
+   else{
+        return res.status(400).json({ error: descripcion });
+       }
+
+    try {
         const newRole = await prisma.role.create({
             data: { descripcion },
         })
