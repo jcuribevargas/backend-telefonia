@@ -11,6 +11,16 @@ const app = express();
 
 app.use(cors()); // Permite peticiones desde otros orígenes (ej: frontend) 
 app.use(express.json()); // Permite recibir JSON desde el frontend 
+
+// 👇 Loguear cada petición que llega
+app.use((req, res, next) => {
+  console.log(`➡️ ${req.method} ${req.originalUrl}`);
+  console.log("Headers:", req.headers);
+  console.log("Body:", req.body);
+  next();
+});
+
+
 app.use("/api", productRoutes); // Prefijo para nuestras rutas 
 app.use("/api", roleRoutes); // Prefijo para nuestras rutas
 

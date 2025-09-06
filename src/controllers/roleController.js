@@ -3,6 +3,7 @@ import prisma from "../prismaClient.js";
 // Crear un nuevo rol
 
 export const createRole = async (req, res) => {
+    console.log("📥 Body recibido:", req.body); // 👈 esto aparece en los logs de Render
     const { descripcion } = req.body;
     try{
         const newRole = await prisma.role.create({
@@ -10,6 +11,7 @@ export const createRole = async (req, res) => {
         })
         res.json(newRole);
     }catch(error){
+     console.error("❌ Prisma Error:", error);
       res.status(400).json({ error: error.message });
     
     }
