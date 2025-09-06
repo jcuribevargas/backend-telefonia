@@ -24,6 +24,11 @@ app.use((req, res, next) => {
 app.use("/api", productRoutes); // Prefijo para nuestras rutas 
 app.use("/api", roleRoutes); // Prefijo para nuestras rutas
 
+app.post("/api/test", (req, res) => {
+  console.log("📩 Llego a /api/test");
+  res.json({ status: "ok", body: req.body });
+});
+
 // 👇 Loguear cada petición que llega
 app.use((req, res, next) => {
   console.log(`➡️ ${req.method} ${req.originalUrl}`);
