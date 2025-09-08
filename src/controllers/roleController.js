@@ -56,7 +56,7 @@ export const deleteRole = async (req, res)=>{
         });
         res.json(delrole);
     }catch(error){
-        res.status(.400).json({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 }
