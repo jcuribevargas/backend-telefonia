@@ -10,14 +10,7 @@ const newProduct = await prisma.producto.create({
     }); 
     res.json(newProduct); 
   } catch (error) { 
-    console.error("Error al crear el producto:", error); 
-     if (error.code === 'P2002') {
-        res.status(409).json({ error: "Producto con esta referencia ya existe." });
-      } else {
-        console.error("Error al crear el producto:", error);  
-        }
-
-    res.status(400).json({ error: error.message });
+      res.status(400).json({ error: error.message });
       } 
 };
 
