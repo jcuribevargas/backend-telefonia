@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv"; 
 import productRoutes from "./routes/productRoutes.js"; 
 import roleRoutes from "./routes/roleRoutes.js";
+import documentTypeRoutes from "./routes/documentTypeRoutes.js";
 import { connect } from "./prismaClient.js"; 
 dotenv.config();
 
@@ -23,19 +24,7 @@ app.use((req, res, next) => {
 
 app.use("/api", productRoutes); // Prefijo para nuestras rutas 
 app.use("/api", roleRoutes); // Prefijo para nuestras rutas
-
-app.post("/api/test", (req, res) => {
-  console.log("📩 Llego a /api/test");
-  res.json({ status: "ok", body: req.body });
-});
-
-// 👇 Loguear cada petición que llega
-app.use((req, res, next) => {
-  console.log(`➡️ ${req.method} ${req.originalUrl}`);
-  console.log("Headers:", req.headers);
-  console.log("Body:", req.body);
-  next();
-});
+app.use("/api", documentTypeRoutes); // Prefijo para nuestras rutas
 
 
 // conectarme a la base de datos 
