@@ -5,6 +5,7 @@ import productRoutes from "./routes/productRoutes.js";
 import roleRoutes from "./routes/roleRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import saleRoutes from "./routes/saleRoutes.js";
+import itemSaleRoutes from "./routes/itemSaleRoutes.js";
 import documentTypeRoutes from "./routes/documentTypeRoutes.js";
 import { connect } from "./prismaClient.js"; 
 dotenv.config();
@@ -29,7 +30,7 @@ app.use("/api", roleRoutes); // Prefijo para nuestras rutas
 app.use("/api", documentTypeRoutes); // Prefijo para nuestras rutas
 app.use("/api", userRoutes); // Prefijo para nuestras rutas
 app.use("/api", saleRoutes); // Prefijo para nuestras rutas
-
+app.use("/api", itemSaleRoutes); // Prefijo para nuestras rutas
 
 // conectarme a la base de datos 
 connect(); 
